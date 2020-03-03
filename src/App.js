@@ -71,6 +71,29 @@ function App() {
     setPlace1("")
     setPlace2("d-none")
   }
+  //    Ex5
+  const [nid, setNid] = useState([])
+  const pondreUnOeuf = ()=>{
+    let copieNid = [...nid]
+    copieNid.push(1)
+    setNid(copieNid)
+  }
+  const mangerOeuf = ()=>{
+    if (nid.length > 0) {
+      let copieNid = [...nid]
+      copieNid.pop()
+      setNid(copieNid)
+    } else {
+      alert("Il n'y a plus d'oeufs dans le panier !")
+    }
+  }
+  const toutManger = ()=>{
+    if (nid.length > 0) {
+      setNid([])
+    } else {
+      alert("Il n'y a plus d'oeufs dans le panier !")
+    }
+  }
 
   return (
     <div className="container">
@@ -101,6 +124,15 @@ function App() {
             <Link to="/ex4" className="text-decoration-none text-white">Exercice 4</Link>
             </div>
           </div>
+
+          <div className="col-3 ">
+            <div className="d-flex justify-content-center">
+              <Link to="/ex5" className="text-decoration-none text-white m-1 px-5  btn btn-primary d-flex rounded-0 ">Exercice 5</Link>
+            </div>
+          </div>
+
+
+
         </div>
         
         <Switch>
@@ -120,7 +152,7 @@ function App() {
             <Ex4 count={count} place1={place1} place2={place2} changerPlace={changerPlace} reset={reset} />
           </Route>
           <Route path="/ex5">
-            <Ex5  />
+            <Ex5 nid={nid} pondreUnOeuf={pondreUnOeuf} mangerOeuf={mangerOeuf} toutManger={toutManger} />
           </Route>
           <Route path="/ex6">
             <Ex6  />

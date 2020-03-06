@@ -94,6 +94,59 @@ function App() {
       alert("Il n'y a plus d'oeufs dans le panier !")
     }
   }
+  //    Ex6   NIVEAU 1
+  const [input1, setInput1] = useState()
+  const [input2, setInput2] = useState()
+  const [res, setRes] = useState("...")
+  const recup1 = (e)=>{
+    setInput1(e.target.value)
+  }
+  const recup2 = (e)=>{
+    setInput2(e.target.value)
+  }
+  const egale = ()=>{
+    setRes(parseFloat(input1)+parseFloat(input2))
+  }
+  //    Ex6   NIVEAU 2
+  const [carac] = useState(
+    ["1","2","3","+","4","5","6","-","7","8","9","*","C","0","=","/"]
+  )
+  const bg = (i)=>{
+    var backGround
+    if (i === 3 || i === 7 || i === 11 || i === 15) {
+      backGround = "btn-primary"
+    } else if (i === 12) {
+      backGround = "btn-danger"
+    } else if (i === 14) {
+      backGround = "btn-success"
+    } else {
+      backGround = "btn-light"
+    }
+    return backGround
+  }
+  const [view, setView] = useState("...")
+  const [resultat, setResultat] = useState("...")
+  const calcul = (el)=>{
+    if (el !== "C" && el !== "=") {
+      if (view === "...") {
+        setView(el)
+      } else {
+        if (view[0] !== "/") {
+          let copieView = view
+          setView(copieView+el)
+        } else {
+          alert("Veuillez recommencer !\nMettez d'abord un chiffre puis le signe de l'opération voulue. Merci <3")
+
+        }
+      }
+    } else if (el === "C") {
+      setView("...")
+      setResultat("...")
+    } else if (el === "=") {
+      setResultat(eval(view))
+      setView("...")
+    }
+  }
 
   return (
     <div className="container">
@@ -131,13 +184,26 @@ function App() {
             </div>
           </div>
 
+          <div className="col-3 ">
+            <div className="d-flex justify-content-center">
+              <Link to="/ex6" className="text-decoration-none text-white m-1 px-5  btn btn-primary d-flex rounded-0 ">Exercice 6</Link>
+            </div>
+          </div>
 
+
+          <div className="col-3 ">
+            <div className="d-flex justify-content-center">
+              <Link to="/ex7" className="text-decoration-none text-white m-1 px-5  btn btn-primary d-flex rounded-0 ">Exercice 7</Link>
+            </div>
+          </div>
 
         </div>
         
         <Switch>
           <Route exact path="/">
-            HOME
+            <div className="jumbotron p-5 text-center">
+              <h1 className="d-3">Bienvenue dans la Recap</h1>
+            </div>
           </Route>
           <Route path="/ex1">
             <Ex1 changerTitre={changerTitre} titre={titre} changerColori={changerColori} colori={colori} changerFond={changerFond} laBase={laBase} />
@@ -155,7 +221,7 @@ function App() {
             <Ex5 nid={nid} pondreUnOeuf={pondreUnOeuf} mangerOeuf={mangerOeuf} toutManger={toutManger} />
           </Route>
           <Route path="/ex6">
-            <Ex6  />
+            <Ex6 recup1={recup1} recup2={recup2} res={res} egale={egale} carac={carac} bg={bg} calcul={calcul} view={view} resultat={resultat} />
           </Route>
           <Route path="/ex7">
             <Ex7  />
